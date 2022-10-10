@@ -1,8 +1,10 @@
 import Landing from './Pages/Landing'
+import Header from './Components/Header'
 
 function App() {
   return (
-    <div>
+    <div className="px-20">
+      <Header />
       <Landing />
     </div>
   )
