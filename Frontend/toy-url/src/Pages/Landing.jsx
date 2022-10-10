@@ -1,4 +1,5 @@
 import React from 'react'
+import Recent from '../Components/Recent'
 import InputBar from '../Components/InputBar'
 
 function Landing() {

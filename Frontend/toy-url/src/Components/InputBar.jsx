@@ -1,7 +1,13 @@
-import React from 'react'
+import { useState } from 'react'
 import Search from '../Assets/SVG/Search.svg'
 
 function InputBar() {
+  const [link, setLink] = useState('')
+
+  const onClick = () => {
+    console.log(link)
+  }
+
   return (
     <div className="w-full">
       <div className="flex w-full justify-center gap-3 py-8">
@@ -16,10 +22,15 @@ function InputBar() {
           <input
             className="h-1/2 w-full focus:outline-none"
             type="text"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
             placeholder="Enter Link Here ..."
           />
         </div>
-        <button className="h-14 rounded-3xl bg-blue-600 px-6 font-bold text-white">
+        <button
+          className="h-14 rounded-3xl bg-blue-600 px-6 font-bold text-white"
+          onClick={onClick}
+        >
           Process
         </button>
       </div>
