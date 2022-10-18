@@ -1,3 +1,4 @@
+import json
 import os
 from sqlalchemy import Column, String, Integer
 from flask import Flask
@@ -32,6 +33,14 @@ class Url(db.Model):
     long_url = Column(String(80), unique=True)
     short_url = Column(String(80), nullable=False, unique=True)
     
+    def format(self):
+        return {
+            'id': self.id,
+            'long_url': self.long_url,
+            'short_url': self.short_url,
+        }
+
     def insert(self):
         db.session.add(self)
         db.session.commit()
+    
