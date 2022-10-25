@@ -20,16 +20,20 @@ def random_string(N):
 
     # using random.choices()
     # generating random strings
-        res = ''.join(random.choices(string.ascii_lowercase + string.digits, k=N))
-        query = Url.query.filter(Url.short_url == res).one_or_none()
+        random_str = ''.join(random.choices(string.ascii_lowercase + string.digits, k=N))
+        query = Url.query.filter(Url.short_url == random_str).one_or_none()
 
         while (query is not None):
-            res = ''.join(random.choices(string.ascii_lowercase + string.digits, k=N))
-            query = Url.query.filter(Url.short_url == res).one_or_none()
+            random_str = ''.join(random.choices(string.ascii_lowercase + string.digits, k=N))
+            query = Url.query.filter(Url.short_url == random_str).one_or_none()
             N = N + 1
 
     # print result
-        return str(res)
+        return str(random_str)
+
+# def check_long_url(url):
+#         query = Url.query.filter(Url.long_url == url).one_or_none()
+#         return query
 
 # Gets all the urls
 @app.route('/')
@@ -50,15 +54,30 @@ def get_urls():
 def add_url():
     # Gets long url data from the body of the request
     body = request.get_json()
-    new_url = body.get('url', None)
-    if new_url is None:
+    new_long_url = body.get('url', None).replace(" ", "")
+
+# check if new_long_url is in the database
+    query_long_url = Url.query.filter(Url.long_url == new_long_url).one_or_none()
+    if query_long_url is not None:
+        url = {
+            "id": query_long_url.id,
+            "long_url": query_long_url.long_url,
+            "short_url": query_long_url.short_url
+        }
+        return jsonify({
+            "success": True,
+            "url": url
+        }), 200
+
+# If there is no data from the user, abort the request
+    if new_long_url is None:
         abort(404)
 
     new_str = random_string(7)
 
     try:
         url = Url(
-            long_url=new_url,
+            long_url=new_long_url,
             short_url=new_str
         )
 
