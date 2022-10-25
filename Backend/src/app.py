@@ -31,9 +31,6 @@ def random_string(N):
     # print result
         return str(random_str)
 
-# def check_long_url(url):
-#         query = Url.query.filter(Url.long_url == url).one_or_none()
-#         return query
 
 # Gets all the urls
 @app.route('/')
@@ -56,7 +53,11 @@ def add_url():
     body = request.get_json()
     new_long_url = body.get('url', None).replace(" ", "")
 
-# check if new_long_url is in the database
+    # If there is no data from the user, abort the request
+    if new_long_url is None:
+        abort(404)
+
+    # check if new_long_url is in the database
     query_long_url = Url.query.filter(Url.long_url == new_long_url).one_or_none()
     if query_long_url is not None:
         url = {
@@ -69,10 +70,7 @@ def add_url():
             "url": url
         }), 200
 
-# If there is no data from the user, abort the request
-    if new_long_url is None:
-        abort(404)
-
+    # Call function to generate new string to be used for the short_url
     new_str = random_string(7)
 
     try:
