@@ -28,10 +28,10 @@ def random_string(N):
             query = Url.query.filter(Url.short_url == res).one_or_none()
             N = N + 1
 
-
     # print result
         return str(res)
 
+# Gets all the urls
 @app.route('/')
 def get_urls():
     query = Url.query.all()
@@ -48,13 +48,13 @@ def get_urls():
 # Creates new short url and saves it together with long url in database
 @app.route('/url', methods=['POST'])
 def add_url():
+    # Gets long url data from the body of the request
     body = request.get_json()
     new_url = body.get('url', None)
     if new_url is None:
         abort(404)
 
     new_str = random_string(7)
-    print(new_str)
 
     try:
         url = Url(
@@ -73,7 +73,7 @@ def add_url():
     except BaseException:
         abort(422)
 
-
+# Redirects all requests to the short URL to the full URL.
 @app.route('/<short_url>')
 def redirect_to_long_url(short_url):
     query = Url.query.filter(Url.short_url==short_url).one_or_none()
