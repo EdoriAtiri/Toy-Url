@@ -14,13 +14,20 @@ setup_db(app)
 # db_drop_and_create_all()
 
 
-def random_string():
+def random_string(N):
      #  initializing size of string
-        N = 7
+        
 
     # using random.choices()
     # generating random strings
         res = ''.join(random.choices(string.ascii_lowercase + string.digits, k=N))
+        query = Url.query.filter(Url.short_url == res).one_or_none()
+
+        while (query is not None):
+            res = ''.join(random.choices(string.ascii_lowercase + string.digits, k=N))
+            query = Url.query.filter(Url.short_url == res).one_or_none()
+            N = N + 1
+
 
     # print result
         return str(res)
@@ -38,7 +45,7 @@ def get_urls():
     }), 200
 
 
-
+# Creates new short url and saves it together with long url in database
 @app.route('/url', methods=['POST'])
 def add_url():
     body = request.get_json()
@@ -46,7 +53,7 @@ def add_url():
     if new_url is None:
         abort(404)
 
-    new_str = random_string()
+    new_str = random_string(7)
     print(new_str)
 
     try:
@@ -54,7 +61,6 @@ def add_url():
             long_url=new_url,
             short_url=new_str
         )
-            # short_url=f"https://toyurl/{str(res)}"
 
         url.insert()
         url = url.format()
