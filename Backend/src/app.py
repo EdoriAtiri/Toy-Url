@@ -15,9 +15,6 @@ setup_db(app)
 
 
 def random_string(N):
-     #  initializing size of string
-        
-
     # using random.choices()
     # generating random strings
         random_str = ''.join(random.choices(string.ascii_lowercase + string.digits, k=N))
@@ -35,6 +32,7 @@ def random_string(N):
 # Gets all the urls
 @app.route('/')
 def get_urls():
+
     query = Url.query.all()
 
     urls = [url.format() for url in query]
@@ -63,15 +61,16 @@ def add_url():
         url = {
             "id": query_long_url.id,
             "long_url": query_long_url.long_url,
-            "short_url": query_long_url.short_url
+            "short_url":request.root_url + query_long_url.short_url
         }
+
         return jsonify({
             "success": True,
             "url": url
         }), 200
 
     # Call function to generate new string to be used for the short_url
-    new_str = random_string(7)
+    new_str = random_string(4)
 
     try:
         url = Url(
@@ -80,6 +79,8 @@ def add_url():
         )
 
         url.insert()
+        # Update short_url to return to the user the base/root url with the randomly generated string, without adding the root_url to the database. Because the random string will be used in hitting the endpoint to get and redirect to the long url that matches with the long_url.
+        url.short_url = request.root_url + new_str
         url = url.format()
     
         return jsonify({

@@ -38,7 +38,7 @@ class Url(db.Model):
             'id': self.id,
             'long_url': self.long_url,
             'short_url': self.short_url,
-        }
+        } 
 
     def insert(self):
         db.session.add(self)

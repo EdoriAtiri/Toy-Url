@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Search from '../Assets/SVG/Search.svg'
+import Loader from './Loader'
 
 function InputBar() {
   const [link, setLink] = useState('')
@@ -10,7 +11,7 @@ function InputBar() {
 
   return (
     <div className="w-full">
-      <div className="flex w-full justify-center gap-3 py-8">
+      <div className="flex w-full justify-center gap-3 pt-8">
         <div className="flex h-14 w-6/12 items-center rounded-3xl border-[0.5px]  px-6 shadow-xl">
           <figure className="h-1/2">
             <img
@@ -34,6 +35,9 @@ function InputBar() {
           Process
         </button>
       </div>
+
+      {/*Loading  */}
+      <div className="grid h-12 place-content-center">{/* <Loader /> */}</div>
 
       {/* Results */}
       <div className="flex w-full justify-center gap-2">
