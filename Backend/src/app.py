@@ -2,18 +2,30 @@ import os
 import json
 import random
 import string
+from urllib import response
 from flask import Flask, jsonify, request, abort, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
-from flask_cors import CORS
-
+from flask_cors import cross_origin
 
 from .database.models import setup_db, db_drop_and_create_all, Url
 
 app = Flask(__name__)
 setup_db(app)
+# CORS(app)
 
 # db_drop_and_create_all()
+
+# the after_request decorator is used to set Access-Control-Allow
+# @app.after_request
+# def after_request(response):
+#     response.headers.add(
+#         'Access-Control-Allow-Headers',
+#         'Content-Type,Authorization,true')
+#     response.headers.add(
+#         'Access-Control-Allow-Methods',
+#         'GET,PUT,POST,DELETE,OPTIONS')
+#     response.headers.add('Access-Control-Allow-Origin', '*')
+#     return response
 
 
 def random_string(N):
@@ -33,6 +45,7 @@ def random_string(N):
 
 # Gets all the urls
 @app.route('/')
+@cross_origin()
 def get_urls():
 
     query = Url.query.all()
@@ -48,10 +61,11 @@ def get_urls():
 
 # Creates new short url and saves it together with long url in database
 @app.route('/url', methods=['POST'])
+@cross_origin()
 def add_url():
     # Gets long url data from the body of the request
     body = request.get_json()
-    new_long_url = body.get('url', None).replace(" ", "")
+    new_long_url = body.get('new_url', None).replace(" ", "")
 
     # If there is no data from the user, abort the request
     if new_long_url is None:
@@ -95,6 +109,7 @@ def add_url():
 
 # Redirects all requests to the short URL to the full URL.
 @app.route('/<short_url>')
+@cross_origin()
 def redirect_to_long_url(short_url):
     query = Url.query.filter(Url.short_url==short_url).one_or_none()
 
