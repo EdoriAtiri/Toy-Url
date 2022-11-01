@@ -1,12 +1,15 @@
 import Landing from './Pages/Landing'
 import Header from './Components/Header'
+import { UrlProvider } from './Context/UrlContext'
 
 function App() {
   return (
-    <div className="px-20">
-      <Header />
-      <Landing />
-    </div>
+    <UrlProvider>
+      <div className="px-20">
+        <Header />
+        <Landing />
+      </div>
+    </UrlProvider>
   )
 }
 

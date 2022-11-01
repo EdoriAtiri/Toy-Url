@@ -1,12 +1,14 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import Search from '../Assets/SVG/Search.svg'
 import Loader from './Loader'
+import UrlContext from '../Context/UrlContext'
 
 function InputBar() {
+  const { addUrl, url, isLoading } = useContext(UrlContext)
   const [link, setLink] = useState('')
 
   const onClick = () => {
-    console.log(link)
+    addUrl(link)
   }
 
   return (
@@ -42,7 +44,7 @@ function InputBar() {
       {/* Results */}
       <div className="flex w-full justify-center gap-2">
         <p className="text-xl font-bold text-blue-600 underline">
-          Lorem, ipsum dolor.
+          {url.short_url}
         </p>
         <button className="rounded bg-blue-600 px-2 font-bold text-white">
           copy

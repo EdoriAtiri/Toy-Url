@@ -5,6 +5,8 @@ import string
 from flask import Flask, jsonify, request, abort, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from flask_cors import CORS
+
 
 from .database.models import setup_db, db_drop_and_create_all, Url
 
