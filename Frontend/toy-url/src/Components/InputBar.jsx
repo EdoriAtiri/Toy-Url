@@ -43,9 +43,7 @@ function InputBar() {
 
       {/* Results */}
       <div className="flex w-full justify-center gap-2">
-        <p className="text-xl font-bold text-blue-600 underline">
-          {url.short_url}
-        </p>
+        <p className="text-xl font-bold text-blue-600 underline">{url}</p>
         <button className="rounded bg-blue-600 px-2 font-bold text-white">
           copy
         </button>

@@ -4,22 +4,21 @@ const UrlContext = createContext()
 
 export const UrlProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true)
-  const [url, setUrl] = useState('yui')
+  const [url, setUrl] = useState('')
   const BASE_URL = process.env.REACT_APP_BASE_URL
 
   const addUrl = async (newUrl) => {
-    console.log(newUrl)
-    const response = await fetch(`${BASE_URL}/url`, {
+    const response = await fetch(`${BASE_URL}url`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newUrl),
+      body: JSON.stringify({ new_url: newUrl }),
     })
 
     const data = await response.json()
-    console.log(data)
-    setUrl(data)
+    setUrl(data.url.short_url)
+    console.log(url)
   }
 
   return (
