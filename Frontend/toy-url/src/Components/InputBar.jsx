@@ -14,7 +14,7 @@ function InputBar() {
   return (
     <div className="w-full">
       <div className="flex w-full justify-center gap-3 pt-8">
-        <div className="flex h-14 w-6/12 items-center rounded-3xl border-[0.5px]  px-6 shadow-xl">
+        <div className="flex h-14 w-6/12 items-center rounded-3xl border-[0.5px]  px-6 shadow-xl transition-shadow duration-500 focus-within:shadow-blue-100 focus-within:ring-1 focus-within:ring-blue-600">
           <figure className="h-1/2">
             <img
               src={Search}
@@ -31,7 +31,7 @@ function InputBar() {
           />
         </div>
         <button
-          className="h-14 rounded-3xl bg-blue-600 px-6 font-bold text-white"
+          className="h-14 rounded-3xl bg-blue-600 px-6 font-bold text-white transition-transform active:scale-95"
           onClick={onClick}
         >
           Process
