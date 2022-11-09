@@ -11,6 +11,8 @@ function InputBar() {
     addUrl(link)
   }
 
+  const { short_url, long_url } = url
+
   return (
     <div className="w-full">
       <div className="flex w-full justify-center gap-4 pt-8">
@@ -50,10 +52,10 @@ function InputBar() {
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href={url}
+            href={short_url}
             className="text-xl font-bold text-blue-600 "
           >
-            {url}
+            {short_url}
           </a>
           <button className="rounded bg-blue-600 px-2 font-bold text-white">
             copy
