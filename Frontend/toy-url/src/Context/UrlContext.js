@@ -3,11 +3,12 @@ import { createContext, useState } from 'react'
 const UrlContext = createContext()
 
 export const UrlProvider = ({ children }) => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [url, setUrl] = useState('')
   const BASE_URL = process.env.REACT_APP_BASE_URL
 
   const addUrl = async (newUrl) => {
+    setIsLoading(true)
     const response = await fetch(`${BASE_URL}url`, {
       method: 'POST',
       headers: {
@@ -19,6 +20,7 @@ export const UrlProvider = ({ children }) => {
     const data = await response.json()
     setUrl(data.url.short_url)
     console.log(url)
+    setIsLoading(false)
   }
 
   return (

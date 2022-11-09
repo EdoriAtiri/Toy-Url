@@ -39,7 +39,10 @@ function InputBar() {
       </div>
 
       {/*Loading  */}
-      <div className="grid h-12 place-content-center">{/* <Loader /> */}</div>
+
+      <div className="grid h-12 place-content-center">
+        {isLoading && <Loader />}
+      </div>
 
       {/* Results */}
       <div className="flex w-full justify-center gap-2">
