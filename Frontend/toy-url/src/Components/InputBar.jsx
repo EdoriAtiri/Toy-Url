@@ -13,7 +13,7 @@ function InputBar() {
 
   return (
     <div className="w-full">
-      <div className="flex w-full justify-center gap-3 pt-8">
+      <div className="flex w-full justify-center gap-4 pt-8">
         <div className="flex h-14 w-6/12 items-center rounded-3xl border-[0.5px]  px-6 shadow-xl transition-shadow duration-500 focus-within:shadow-blue-100 focus-within:ring-1 focus-within:ring-blue-600">
           <figure className="h-1/2">
             <img
@@ -46,8 +46,15 @@ function InputBar() {
 
       {/* Results */}
       {url && (
-        <div className="flex w-full justify-center gap-2">
-          <p className="text-xl font-bold text-blue-600 underline">{url}</p>
+        <div className="flex w-full justify-center gap-4">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={url}
+            className="text-xl font-bold text-blue-600 "
+          >
+            {url}
+          </a>
           <button className="rounded bg-blue-600 px-2 font-bold text-white">
             copy
           </button>
