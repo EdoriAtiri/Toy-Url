@@ -6,16 +6,56 @@ import UrlContext from '../Context/UrlContext'
 function InputBar() {
   const { addUrl, url, isLoading } = useContext(UrlContext)
   const [link, setLink] = useState('')
+  const [error, setError] = useState('')
 
-  const onClick = () => {
+  function validURL(str) {
+    // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+    var pattern = new RegExp(
+      '^(https?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$',
+      'i'
+    ) // fragment locator
+    return !!pattern.test(str)
+  }
+  const validationErr = (val) => {
+    if (val === '') {
+      setError('Enter a Link')
+      return true
+    }
+
+    if (validURL(val) === false) {
+      setError('Invalid Link')
+      return true
+    }
+  }
+
+  const onChange = (e) => {
+    setLink(e.target.value)
+  }
+
+  const onSubmit = (e) => {
+    e.preventDefault()
+    if (validationErr(link)) {
+      // setError('Invalid Url')
+      console.log(error)
+      return
+    }
+    setError('')
     addUrl(link)
   }
 
-  const { short_url, long_url } = url
+  const { short_url } = url
 
   return (
     <div className="w-full">
-      <div className="flex w-full justify-center gap-4 pt-8">
+      <form
+        onSubmit={onSubmit}
+        className="flex w-full justify-center gap-4 pt-8"
+      >
         <div className="flex h-14 w-6/12 items-center rounded-3xl border-[0.5px]  px-6 shadow-xl transition-shadow duration-500 focus-within:shadow-blue-100 focus-within:ring-1 focus-within:ring-blue-600">
           <figure className="h-1/2">
             <img
@@ -28,17 +68,16 @@ function InputBar() {
             className="h-1/2 w-full focus:outline-none"
             type="text"
             value={link}
-            onChange={(e) => setLink(e.target.value)}
+            onChange={onChange}
             placeholder="Enter Link Here ..."
           />
         </div>
         <button
-          className="h-14 rounded-3xl bg-blue-600 px-6 font-bold text-white transition-transform active:scale-95"
-          onClick={onClick}
+          className={`h-14 rounded-3xl bg-blue-600 px-6 font-bold text-white transition-transform active:scale-95 `}
         >
           Process
         </button>
-      </div>
+      </form>
 
       {/*Loading  */}
 

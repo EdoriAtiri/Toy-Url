@@ -19,7 +19,7 @@ export const UrlProvider = ({ children }) => {
 
     const data = await response.json()
     setUrl(data.url)
-    console.log(url)
+    console.log(data.url)
     setIsLoading(false)
   }
 

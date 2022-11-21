@@ -2,6 +2,7 @@ import os
 import json
 import random
 import string
+import validators
 from urllib import response
 from flask import Flask, jsonify, request, abort, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
@@ -66,10 +67,15 @@ def add_url():
     # Gets long url data from the body of the request
     body = request.get_json()
     new_long_url = body.get('new_url', None).replace(" ", "")
-
     # If there is no data from the user, abort the request
-    if new_long_url is None:
-        abort(404)
+    if len(new_long_url) == 0:
+        return jsonify({
+            "success": False,
+            "message": "empty string"
+        }), 404
+
+    res = validators.url('google.com')
+    print(res)
 
     # check if new_long_url is in the database
     query_long_url = Url.query.filter(Url.long_url == new_long_url).one_or_none()
@@ -120,5 +126,25 @@ def redirect_to_long_url(short_url):
         if query is not None:
             # print(random_string())
             return redirect(str(query.long_url), code=302)
+    except:
+        abort(422)
+
+@app.route('/<id>', methods=['DELETE'])
+@cross_origin()
+def delete_url(id):
+   
+    try:
+        url = Url.query.filter(Url.id==id).one_or_none()
+
+        if url is None:
+            abort(404)
+    
+        url.delete()
+    
+        return jsonify({
+                "success": True,
+                "id": id
+            }), 200
+
     except:
         abort(422)
