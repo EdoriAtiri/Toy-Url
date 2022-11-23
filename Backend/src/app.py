@@ -94,6 +94,9 @@ def add_url():
     # Call function to generate new string to be used for the short_url
     new_str = random_string(4)
 
+    if 'http' not in new_long_url:
+        new_long_url = 'http://' + new_long_url
+
     try:
         url = Url(
             long_url=new_long_url,
@@ -117,15 +120,16 @@ def add_url():
 @app.route('/<short_url>')
 @cross_origin()
 def redirect_to_long_url(short_url):
-    query = Url.query.filter(Url.short_url==short_url).one_or_none()
+    url = Url.query.filter(Url.short_url==short_url).one_or_none()
 
-    if query is None:
+    print(url.long_url)
+    if url is None:
         abort(404)
-
+    # if 'http' in url:
     try:
-        if query is not None:
-            # print(random_string())
-            return redirect(str(query.long_url), code=302)
+        if url is not None:
+            
+            return redirect(str(url.long_url), code=302)
     except:
         abort(422)
 

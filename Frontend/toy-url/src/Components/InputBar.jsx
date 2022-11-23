@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Search from '../Assets/SVG/Search.svg'
 import Loader from './Loader'
 import UrlContext from '../Context/UrlContext'
@@ -6,7 +6,7 @@ import UrlContext from '../Context/UrlContext'
 function InputBar() {
   const { addUrl, url, isLoading } = useContext(UrlContext)
   const [link, setLink] = useState('')
-  const [error, setError] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
 
   function validURL(str) {
     // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
@@ -21,30 +21,38 @@ function InputBar() {
     ) // fragment locator
     return !!pattern.test(str)
   }
-  const validationErr = (val) => {
-    if (val === '') {
-      setError('Enter a Link')
-      return true
+
+  // useEffect(() => {}, [])
+  // const validationErr = (val) => {
+  //   if (val === '') {
+  //     setErrorMessage('Enter a Link')
+  //     return true
+  //   }
+
+  //   if (validURL(val) === false) {
+  //     setErrorMessage('Invalid Link')
+  //     return true
+  //   }
+  // }
+
+  const handleTextChange = (e) => {
+    if (link === '') {
+      setErrorMessage('Enter a Link')
+    } else if (validURL(link) === false) {
+      setErrorMessage('Invalid Link')
+    } else {
+      setErrorMessage(null)
     }
 
-    if (validURL(val) === false) {
-      setError('Invalid Link')
-      return true
-    }
-  }
-
-  const onChange = (e) => {
     setLink(e.target.value)
   }
 
+  useEffect(() => {
+    console.log(errorMessage)
+  }, [errorMessage])
+
   const onSubmit = (e) => {
     e.preventDefault()
-    if (validationErr(link)) {
-      // setError('Invalid Url')
-      console.log(error)
-      return
-    }
-    setError('')
     addUrl(link)
   }
 
@@ -68,7 +76,7 @@ function InputBar() {
             className="h-1/2 w-full focus:outline-none"
             type="text"
             value={link}
-            onChange={onChange}
+            onChange={handleTextChange}
             placeholder="Enter Link Here ..."
           />
         </div>
