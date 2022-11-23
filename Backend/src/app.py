@@ -2,11 +2,12 @@ import os
 import json
 import random
 import string
-import validators
 from urllib import response
 from flask import Flask, jsonify, request, abort, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import cross_origin
+import validators
+from validators import ValidationFailure
 
 from .database.models import setup_db, db_drop_and_create_all, Url
 
@@ -16,17 +17,6 @@ setup_db(app)
 
 # db_drop_and_create_all()
 
-# the after_request decorator is used to set Access-Control-Allow
-# @app.after_request
-# def after_request(response):
-#     response.headers.add(
-#         'Access-Control-Allow-Headers',
-#         'Content-Type,Authorization,true')
-#     response.headers.add(
-#         'Access-Control-Allow-Methods',
-#         'GET,PUT,POST,DELETE,OPTIONS')
-#     response.headers.add('Access-Control-Allow-Origin', '*')
-#     return response
 
 
 def random_string(N):
@@ -42,6 +32,14 @@ def random_string(N):
 
     # print result
         return str(random_str)
+
+def is_string_an_url(url_string: str) -> bool:
+    result = validators.url(url_string)
+
+    if isinstance(result, ValidationFailure):
+        return False
+
+    return result
 
 
 # Gets all the urls
@@ -74,8 +72,12 @@ def add_url():
             "message": "empty string"
         }), 404
 
-    res = validators.url('google.com')
-    print(res)
+    if 'http' not in new_long_url:
+        new_long_url = 'http://' + new_long_url
+
+    print(is_string_an_url(new_long_url))
+    if is_string_an_url(new_long_url) == False:
+        abort(404)
 
     # check if new_long_url is in the database
     query_long_url = Url.query.filter(Url.long_url == new_long_url).one_or_none()
@@ -93,9 +95,6 @@ def add_url():
 
     # Call function to generate new string to be used for the short_url
     new_str = random_string(4)
-
-    if 'http' not in new_long_url:
-        new_long_url = 'http://' + new_long_url
 
     try:
         url = Url(
