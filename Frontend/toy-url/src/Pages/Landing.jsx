@@ -1,6 +1,7 @@
 import React from 'react'
-import Recent from '../Components/Recent'
+// import Recent from '../Components/Recent'
 import InputBar from '../Components/InputBar'
+import Result from '../Components/Result'
 
 function Landing() {
   return (
@@ -36,6 +37,7 @@ function Landing() {
       </section>
       <main>
         <InputBar />
+        <Result />
       </main>
     </div>
   )

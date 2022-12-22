@@ -56,8 +56,6 @@ function InputBar() {
     addUrl(link)
   }
 
-  const { short_url } = url
-
   return (
     <div className="w-full">
       <form
@@ -79,6 +77,15 @@ function InputBar() {
             onChange={handleTextChange}
             placeholder="Enter Link Here ..."
           />
+          {link.length > 0 && (
+            <button
+              type="button"
+              className="flex h-1/2 items-center text-2xl font-bold text-blue-600"
+              onClick={() => setLink('')}
+            >
+              &times;
+            </button>
+          )}
         </div>
         <button
           className={`h-14 rounded-3xl bg-blue-600 px-6 font-bold text-white transition-transform active:scale-95 `}
@@ -92,23 +99,6 @@ function InputBar() {
       <div className="grid h-12 place-content-center">
         {isLoading && <Loader />}
       </div>
-
-      {/* Results */}
-      {url && (
-        <div className="flex w-full justify-center gap-4">
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={short_url}
-            className="text-xl font-bold text-blue-600 "
-          >
-            {short_url}
-          </a>
-          <button className="rounded bg-blue-600 px-2 font-bold text-white">
-            copy
-          </button>
-        </div>
-      )}
     </div>
   )
 }

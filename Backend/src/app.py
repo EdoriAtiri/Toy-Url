@@ -33,7 +33,8 @@ def random_string(N):
     # print result
         return str(random_str)
 
-def is_string_an_url(url_string: str) -> bool:
+def is_string_a_url(url_string: str) -> bool:
+# Checks if string is a valid URL. If it is, returns True. Otherwise Returns False
     result = validators.url(url_string)
 
     if isinstance(result, ValidationFailure):
@@ -75,11 +76,14 @@ def add_url():
     if 'http' not in new_long_url:
         new_long_url = 'http://' + new_long_url
 
-    print(is_string_an_url(new_long_url))
-    if is_string_an_url(new_long_url) == False:
-        abort(404)
+    # Check if string is a valid url, else abort
+    if not is_string_a_url(new_long_url):
+        return jsonify({
+            "success": False,
+            "message": "Provide a valid URL"
+        }), 404
 
-    # check if new_long_url is in the database
+    # check if new_long_url is in the database, if it is return existing entry
     query_long_url = Url.query.filter(Url.long_url == new_long_url).one_or_none()
     if query_long_url is not None:
         url = {
@@ -132,6 +136,7 @@ def redirect_to_long_url(short_url):
     except:
         abort(422)
 
+# Deletes url
 @app.route('/<id>', methods=['DELETE'])
 @cross_origin()
 def delete_url(id):

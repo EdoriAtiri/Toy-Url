@@ -4,6 +4,12 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap');
 
+@layer components {
+  .popup {
+    @apply absolute -top-6 left-1/2 w-24 -translate-x-1/2 transform text-xs text-blue-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100;
+  }
+}
+
 .spinner {
   margin: 0 auto 0;
   width: 70px;
