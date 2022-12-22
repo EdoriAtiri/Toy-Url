@@ -89,7 +89,8 @@ def add_url():
         url = {
             "id": query_long_url.id,
             "long_url": query_long_url.long_url,
-            "short_url":request.root_url + query_long_url.short_url
+            "short_url":request.root_url + query_long_url.short_url,
+            "short_code": query_long_url.short_url
         }
 
         return jsonify({
@@ -108,6 +109,7 @@ def add_url():
 
         url.insert()
         # Update short_url to return to the user the base/root url with the randomly generated string, without adding the root_url to the database. Because the random string will be used in hitting the endpoint to get and redirect to the long url that matches with the long_url.
+        url.short_code = url.short_url
         url.short_url = request.root_url + new_str
         url = url.format()
     
