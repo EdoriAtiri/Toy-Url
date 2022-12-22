@@ -1,0 +1,13 @@
+.share {
+  animation-name: share;
+  animation-duration: 0.4s;
+}
+
+@keyframes share {
+  0% {
+    top: -100%;
+  }
+  100% {
+    top: 50%;
+  }
+}

@@ -1,11 +1,14 @@
 import { useContext, useState } from 'react'
 import QRCode from 'react-qr-code'
 import UrlContext from '../Context/UrlContext'
+import CopyIcon from '../Assets/SVG/Copy.svg'
 import GoToLinkIcon from '../Assets/SVG/GoToLink.svg'
+import ShareIcon from '../Assets/SVG/Share.svg'
 
 function Result() {
   const { url } = useContext(UrlContext)
   const [isCopied, setIsCopied] = useState(false)
+  const [isShareToggled, setIsShareToggled] = useState(false)
 
   const { short_url } = url
 
@@ -36,6 +39,20 @@ function Result() {
 
   return (
     <div>
+      {isShareToggled && (
+        <div
+          id="share"
+          className="fixed inset-0 z-10 h-[100vh] w-full bg-transparent"
+        >
+          <input
+            onClick={() => setIsShareToggled(false)}
+            type="button"
+            className="absolute inset-0 z-20 bg-gray-700 opacity-50"
+          />
+          <div className="share absolute top-1/2 left-1/2 z-30 h-96 w-96 -translate-x-1/2 -translate-y-1/2 transform bg-white opacity-100"></div>
+        </div>
+      )}
+
       {/* Results */}
       {url && (
         <div className="flex w-full justify-center gap-4">
@@ -52,9 +69,15 @@ function Result() {
             onClick={handleCopyClick}
             className="group relative rounded bg-blue-600 px-2 font-bold text-white"
           >
-            <span className="popup">Copy URL</span>
-
-            {isCopied ? 'Copied!' : 'Copy'}
+            <span
+              className={`${'absolute -bottom-6 left-1/2 w-24 -translate-x-1/2 transform text-sm text-blue-600  transition-opacity duration-300 '} ${
+                isCopied ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              {isCopied && 'Copied!'}
+            </span>
+            {!isCopied && <span className="popup">Copy URL</span>}
+            <img className="h-auto w-4" src={CopyIcon} alt="Copy URL" />
           </button>
 
           <a
@@ -66,6 +89,15 @@ function Result() {
             <span className="popup">Visit URL</span>
             <img className="h-auto w-4" src={GoToLinkIcon} alt="go to link" />
           </a>
+
+          <button
+            type="button"
+            onClick={() => setIsShareToggled(true)}
+            className="group relative rounded bg-blue-600 px-2 font-bold text-white"
+          >
+            <span className="popup">Share URL</span>
+            <img className="h-auto w-4" src={ShareIcon} alt="share url" />
+          </button>
         </div>
       )}
       {/* <div

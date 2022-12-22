@@ -1,3 +1,4 @@
+import './App.css'
 import Landing from './Pages/Landing'
 import Header from './Components/Header'
 import { UrlProvider } from './Context/UrlContext'

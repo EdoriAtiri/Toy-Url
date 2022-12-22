@@ -10,7 +10,7 @@ function Landing() {
       <section className="flex justify-between py-8">
         <div className="font-mont text-[calc(1rem+2vw)] font-medium uppercase leading-tight md:leading-10 lg:leading-none">
           <p className="p-0 text-gray-400">Miniaturize</p>
-          <p className="p-0"> long links into Toy URLS</p>
+          <p className="p-0"> long links</p>
         </div>
 
         <div className="relative flex w-[22.5rem] flex-wrap place-items-center  gap-2  text-center text-xl">
