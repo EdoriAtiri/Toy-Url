@@ -1,6 +1,6 @@
 import { useContext, useState } from 'react'
-import QRCode from 'react-qr-code'
 import UrlContext from '../Context/UrlContext'
+import ShareCard from './ShareCard'
 import CopyIcon from '../Assets/SVG/Copy.svg'
 import GoToLinkIcon from '../Assets/SVG/GoToLink.svg'
 import ShareIcon from '../Assets/SVG/Share.svg'
@@ -10,7 +10,7 @@ function Result() {
   const [isCopied, setIsCopied] = useState(false)
   const [isShareToggled, setIsShareToggled] = useState(false)
 
-  const { short_url } = url
+  const { short_url, short_code } = url
 
   async function copyTextToClipboard(text) {
     if ('clipboard' in navigator) {
@@ -49,7 +49,7 @@ function Result() {
             type="button"
             className="absolute inset-0 z-20 bg-gray-700 opacity-50"
           />
-          <div className="share absolute top-1/2 left-1/2 z-30 h-96 w-96 -translate-x-1/2 -translate-y-1/2 transform bg-white opacity-100"></div>
+          <ShareCard url={short_url} code={short_code} />
         </div>
       )}
 
@@ -100,21 +100,6 @@ function Result() {
           </button>
         </div>
       )}
-      {/* <div
-        style={{
-          height: 'auto',
-          margin: '0 auto',
-          maxWidth: 64,
-          width: '100%',
-        }}
-      >
-        <QRCode
-          size={256}
-          style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
-          value={short_url}
-          viewBox={`0 0 256 256`}
-        />
-      </div> */}
     </div>
   )
 }
