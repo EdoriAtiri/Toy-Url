@@ -158,3 +158,48 @@ def delete_url(id):
 
     except:
         abort(422)
+
+
+
+# Error Handler
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({
+        "success": False,
+        "error": 400,
+        "message": "Bad request"
+    }), 400
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "success": False,
+        "error": 404,
+        "message": "Resource not found"
+    }), 404
+
+
+@app.errorhandler(405)
+def not_allowed(error):
+    return jsonify({
+        "success": False,
+        "error": 405,
+        "message": "Method not allowed"
+    }), 405
+
+@app.errorhandler(422)
+def unprocessed_request(error):
+    return jsonify({
+        "success": False,
+        "error": 422,
+        "message": "This request is unprocessable"
+    }), 422
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return jsonify({
+        "success": False,
+        "error": 500,
+        "message": "Internal server error, please try again later"
+    }), 500
