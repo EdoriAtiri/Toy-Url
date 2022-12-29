@@ -4,10 +4,10 @@ import Loader from './Loader'
 import UrlContext from '../Context/UrlContext'
 
 function InputBar() {
-  const { addUrl, url, isLoading } = useContext(UrlContext)
+  const { addUrl, errMsg, setErrMsg, isLoading } = useContext(UrlContext)
   const [link, setLink] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const [isBtnDisabled, setIsBtnDisabled] = useState(false)
+  const [isBtnDisabled, setIsBtnDisabled] = useState(true)
 
   function validURL(str) {
     // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
@@ -23,25 +23,14 @@ function InputBar() {
     return !!pattern.test(str)
   }
 
-  // useEffect(() => {}, [])
-  // const validationErr = (val) => {
-  //   if (val === '') {
-  //     setErrorMessage('Enter a Link')
-  //     return true
-  //   }
-
-  //   if (validURL(val) === false) {
-  //     setErrorMessage('Invalid Link')
-  //     return true
-  //   }
-  // }
-
   const handleTextChange = (e) => {
     setLink(e.target.value)
+    setErrMsg(null)
   }
 
+  // Validation err handling
   useEffect(() => {
-    if (link.length >= 6) {
+    if (link.length >= 2) {
       if (validURL(link.trim()) === false) {
         setErrorMessage('Please enter a valid URL')
         setIsBtnDisabled(true)
@@ -52,8 +41,6 @@ function InputBar() {
     } else if (link.length === 0) {
       setErrorMessage('')
     }
-
-    console.log(errorMessage)
   }, [link])
 
   const onSubmit = (e) => {
@@ -108,9 +95,14 @@ function InputBar() {
 
       <div className="grid h-12 place-content-center">
         {isLoading && <Loader />}
-        {errorMessage && (
+        {!errMsg && errorMessage && (
           <p className="transform text-center text-red-500 transition-all">
             {errorMessage}
+          </p>
+        )}
+        {!errorMessage && errMsg && (
+          <p className="transform text-center text-red-500 transition-all">
+            {errMsg}
           </p>
         )}
       </div>
