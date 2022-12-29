@@ -1,5 +1,5 @@
 import React from 'react'
-import { ReactComponent as MoonIcon } from '../Assets/SVG/Moon.svg'
+// import { ReactComponent as MoonIcon } from '../Assets/SVG/Moon.svg'
 import CarToy from '../Assets/SVG/CarToy.svg'
 
 function Header() {
@@ -12,15 +12,19 @@ function Header() {
         <p className="text-xl font-bold">Toy Url</p>
       </div>
 
-      <div className="flex gap-8 text-xl">
-        <button>About</button>
-        <button>Contact</button>
+      <div className="flex gap-4 text-base font-bold md:gap-8 md:text-xl">
+        <button className="relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:after:w-full">
+          About
+        </button>
+        <button className="relative pb-0.5 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-black after:transition-all after:duration-300 hover:after:w-full">
+          Contact
+        </button>
       </div>
-
+      {/* 
       <button className="flex items-center justify-center gap-4">
         <MoonIcon className="h-5 w-5 gap-4" />
         <p className="text-xl font-bold">Choose</p>
-      </button>
+      </button> */}
     </div>
   )
 }

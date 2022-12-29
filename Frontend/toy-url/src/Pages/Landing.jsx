@@ -7,10 +7,10 @@ function Landing() {
   return (
     <div>
       {/* Body */}
-      <section className="flex justify-between py-8">
-        <div className="font-mont text-[calc(1rem+2vw)] font-medium uppercase leading-tight md:leading-10 lg:leading-none">
-          <p className="p-0 text-gray-400">Miniaturize</p>
-          <p className="p-0"> long links</p>
+      <section className="flex flex-col items-center  gap-8 py-8 md:flex-row md:items-start md:justify-between md:gap-0">
+        <div className="space-x-4 font-mont text-[calc(1rem+2vw)] font-medium uppercase leading-tight md:space-x-0 md:leading-10 lg:leading-none">
+          <p className="inline-block p-0 text-gray-400 md:block">Miniaturize</p>
+          <p className="inline-block p-0 md:block"> long links</p>
         </div>
 
         <div className="relative flex w-[22.5rem] flex-wrap place-items-center  gap-2  text-center text-xl">

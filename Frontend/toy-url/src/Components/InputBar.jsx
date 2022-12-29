@@ -52,9 +52,9 @@ function InputBar() {
     <div className="w-full">
       <form
         onSubmit={onSubmit}
-        className="flex w-full justify-center gap-4 pt-8"
+        className="flex w-full justify-between gap-4 pt-8 md:justify-center"
       >
-        <div className="flex h-14 w-6/12 items-center rounded-3xl border-[0.5px]  px-6 shadow-xl transition-shadow duration-500 focus-within:shadow-blue-100 focus-within:ring-1 focus-within:ring-blue-600">
+        <div className="flex h-14 w-full items-center rounded-3xl border-[0.5px] px-6  shadow-xl transition-shadow duration-500 focus-within:shadow-blue-100 focus-within:ring-1 focus-within:ring-blue-600 md:w-6/12">
           <figure className="h-1/2">
             <img
               src={Search}
