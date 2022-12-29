@@ -29,17 +29,29 @@ function ShareCard({ code, url }) {
 
     document.getElementById('downloadQRCode').appendChild(download)
     download.click()
-    // document.getElementById('downloadQRCode').remove(download)
+    document.getElementById('downloadQRCode').remove(download)
   }
 
   return (
     <div className="share absolute top-1/2 left-1/2 z-30 flex h-fit w-80 -translate-x-1/2 -translate-y-1/2 transform flex-col gap-6 rounded-md bg-white py-6 px-4 opacity-100">
       <div className="flex justify-between">
         <EmailShareButton subject="Shared from Toy URL" url={url}>
-          <FaEnvelope size={36} color={'#2563eb'} />
+          <FaEnvelope
+            className={
+              'transform transition-transform duration-200 hover:scale-105'
+            }
+            size={36}
+            color={'#2563eb'}
+          />
         </EmailShareButton>
         <FacebookShareButton url={url}>
-          <FaFacebook size={36} color={'#2563eb'} />
+          <FaFacebook
+            className={
+              'transform transition-transform duration-200 hover:scale-105'
+            }
+            size={36}
+            color={'#2563eb'}
+          />
         </FacebookShareButton>
         <LinkedinShareButton
           title="Toy URL"
@@ -47,16 +59,40 @@ function ShareCard({ code, url }) {
           source="https://toyurl.com"
           url={url}
         >
-          <FaLinkedin size={36} color={'#2563eb'} />
+          <FaLinkedin
+            className={
+              'transform transition-transform duration-200 hover:scale-105'
+            }
+            size={36}
+            color={'#2563eb'}
+          />
         </LinkedinShareButton>
         <TelegramShareButton title="Toy URL" url={url}>
-          <FaTelegram size={36} color={'#2563eb'} />
+          <FaTelegram
+            className={
+              'transform transition-transform duration-200 hover:scale-105'
+            }
+            size={36}
+            color={'#2563eb'}
+          />
         </TelegramShareButton>
         <TwitterShareButton title="Shared from Toy URL" url={url}>
-          <FaTwitter size={36} color={'#2563eb'} />
+          <FaTwitter
+            className={
+              'transform transition-transform duration-200 hover:scale-105'
+            }
+            size={36}
+            color={'#2563eb'}
+          />
         </TwitterShareButton>
         <WhatsappShareButton title="Shared from Toy URL" url={url}>
-          <FaWhatsapp size={36} color={'#2563eb'} />
+          <FaWhatsapp
+            className={
+              'transform transition-transform duration-200 hover:scale-105'
+            }
+            size={36}
+            color={'#2563eb'}
+          />
         </WhatsappShareButton>
       </div>
       <div className="flex items-start justify-between">
@@ -64,7 +100,7 @@ function ShareCard({ code, url }) {
           <QRCode id={code} size={150} value={url} />
         </div>
         <input
-          className="text-md grid cursor-pointer place-content-center rounded-sm bg-blue-600 p-2 font-bold text-white"
+          className="text-md grid transform cursor-pointer place-content-center rounded-sm bg-blue-600 p-2 font-bold text-white transition-transform duration-200 hover:scale-105"
           type="button"
           onClick={downloadQRCode}
           value="Download QR"

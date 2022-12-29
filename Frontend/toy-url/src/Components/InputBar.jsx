@@ -7,6 +7,7 @@ function InputBar() {
   const { addUrl, url, isLoading } = useContext(UrlContext)
   const [link, setLink] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false)
 
   function validURL(str) {
     // https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
@@ -36,20 +37,24 @@ function InputBar() {
   // }
 
   const handleTextChange = (e) => {
-    if (link === '') {
-      setErrorMessage('Enter a Link')
-    } else if (validURL(link) === false) {
-      setErrorMessage('Invalid Link')
-    } else {
-      setErrorMessage(null)
-    }
-
     setLink(e.target.value)
   }
 
   useEffect(() => {
+    if (link.length >= 6) {
+      if (validURL(link.trim()) === false) {
+        setErrorMessage('Please enter a valid URL')
+        setIsBtnDisabled(true)
+      } else {
+        setErrorMessage('')
+        setIsBtnDisabled(false)
+      }
+    } else if (link.length === 0) {
+      setErrorMessage('')
+    }
+
     console.log(errorMessage)
-  }, [errorMessage])
+  }, [link])
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -88,7 +93,12 @@ function InputBar() {
           )}
         </div>
         <button
-          className={`h-14 rounded-3xl bg-blue-600 px-6 font-bold text-white transition-transform active:scale-95 `}
+          disabled={isBtnDisabled}
+          className={`h-14 rounded-3xl bg-blue-600 px-6 font-bold text-white  ${
+            isBtnDisabled
+              ? 'opacity-80 '
+              : 'transition-transform active:scale-95'
+          }`}
         >
           Process
         </button>
@@ -98,6 +108,11 @@ function InputBar() {
 
       <div className="grid h-12 place-content-center">
         {isLoading && <Loader />}
+        {errorMessage && (
+          <p className="transform text-center text-red-500 transition-all">
+            {errorMessage}
+          </p>
+        )}
       </div>
     </div>
   )

@@ -6,7 +6,7 @@ import { UrlProvider } from './Context/UrlContext'
 function App() {
   return (
     <UrlProvider>
-      <div className="px-20">
+      <div className="px-4 md:px-10 lg:px-20">
         <Header />
         <Landing />
       </div>
