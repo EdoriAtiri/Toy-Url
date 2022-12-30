@@ -126,7 +126,6 @@ def add_url():
 def redirect_to_long_url(short_url):
     url = Url.query.filter(Url.short_url==short_url).one_or_none()
 
-    print(url.long_url)
     if url is None:
         abort(404)
     # if 'http' in url:
