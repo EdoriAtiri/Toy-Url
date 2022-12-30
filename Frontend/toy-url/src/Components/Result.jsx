@@ -55,7 +55,7 @@ function Result() {
 
       {/* Results */}
       {url && (
-        <div className="flex w-full justify-center gap-4">
+        <div className="flex w-full flex-col items-center justify-center gap-6 md:flex-row md:gap-4">
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -64,40 +64,42 @@ function Result() {
           >
             {short_url}
           </a>
-          <button
-            disabled={isCopied}
-            onClick={handleCopyClick}
-            className="group relative rounded bg-blue-600 px-2 font-bold text-white"
-          >
-            <span
-              className={`${'absolute -bottom-6 left-1/2 w-24 -translate-x-1/2 transform text-sm text-blue-600  transition-opacity duration-300 '} ${
-                isCopied ? 'opacity-100' : 'opacity-0'
-              }`}
+          <div className="flex h-fit gap-4">
+            <button
+              disabled={isCopied}
+              onClick={handleCopyClick}
+              className="group relative rounded bg-blue-600 px-2 py-2 font-bold text-white"
             >
-              {isCopied && 'Copied!'}
-            </span>
-            {!isCopied && <span className="popup">Copy URL</span>}
-            <img className="h-auto w-4" src={CopyIcon} alt="Copy URL" />
-          </button>
+              <span
+                className={`${'absolute -bottom-6 left-1/2 w-24 -translate-x-1/2 transform text-sm text-blue-600  transition-opacity duration-300 '} ${
+                  isCopied ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                {isCopied && 'Copied!'}
+              </span>
+              {!isCopied && <span className="popup">Copy URL</span>}
+              <img className="h-auto w-4" src={CopyIcon} alt="Copy URL" />
+            </button>
 
-          <a
-            href={short_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative grid place-content-center rounded border border-blue-600  px-2 text-center font-bold text-white"
-          >
-            <span className="popup">Visit URL</span>
-            <img className="h-auto w-4" src={GoToLinkIcon} alt="go to link" />
-          </a>
+            <a
+              href={short_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative grid place-content-center rounded border border-blue-600  px-2 text-center font-bold text-white"
+            >
+              <span className="popup">Visit URL</span>
+              <img className="h-auto w-4" src={GoToLinkIcon} alt="go to link" />
+            </a>
 
-          <button
-            type="button"
-            onClick={() => setIsShareToggled(true)}
-            className="group relative rounded bg-blue-600 px-2 font-bold text-white"
-          >
-            <span className="popup">Share URL</span>
-            <img className="h-auto w-4" src={ShareIcon} alt="share url" />
-          </button>
+            <button
+              type="button"
+              onClick={() => setIsShareToggled(true)}
+              className="group relative rounded bg-blue-600 px-2 font-bold text-white"
+            >
+              <span className="popup">Share URL</span>
+              <img className="h-auto w-4" src={ShareIcon} alt="share url" />
+            </button>
+          </div>
         </div>
       )}
     </div>

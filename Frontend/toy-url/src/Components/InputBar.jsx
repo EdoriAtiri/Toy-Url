@@ -62,7 +62,11 @@ function InputBar() {
               className="mr-5 h-full w-7 border-r-2  pr-2"
             />
           </figure>
+          <label className="invisible absolute" htmlFor="url_input">
+            Url input
+          </label>
           <input
+            id="url_input"
             className="h-1/2 w-full focus:outline-none"
             type="text"
             value={link}

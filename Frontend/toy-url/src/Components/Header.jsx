@@ -4,12 +4,12 @@ import CarToy from '../Assets/SVG/CarToy.svg'
 
 function Header() {
   return (
-    <div className="flex h-24 items-center justify-between  py-4">
+    <div className="flex h-24 items-center justify-between  pb-4">
       <div className="flex items-center gap-2 overflow-hidden rounded bg-[#35C3EE] pr-2 ">
         <figure className="grid w-fit place-content-center rounded-r-full bg-blue-700 pl-2 pr-4">
           <img src={CarToy} alt="Car toy" className="h-12 w-12" />
         </figure>
-        <p className="text-xl font-bold">Toy Url</p>
+        <h1 className="text-xl font-bold">Toy Url</h1>
       </div>
 
       <div className="flex gap-4 text-base font-bold md:gap-8 md:text-xl">
