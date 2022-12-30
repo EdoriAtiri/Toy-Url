@@ -42,7 +42,7 @@ function Result() {
       {isShareToggled && (
         <div
           id="share"
-          className="fixed inset-0 z-10 h-[100vh] w-full bg-transparent"
+          className="fixed inset-0 z-40 h-[100vh] w-full bg-transparent"
         >
           <input
             onClick={() => setIsShareToggled(false)}

@@ -33,7 +33,7 @@ function ShareCard({ code, url }) {
   }
 
   return (
-    <div className="share absolute top-1/2 left-1/2 z-30 flex h-fit w-80 -translate-x-1/2 -translate-y-1/2 transform flex-col gap-6 rounded-md bg-white py-6 px-4 opacity-100">
+    <div className="share absolute top-1/2 left-1/2 z-50 flex h-fit w-80 -translate-x-1/2 -translate-y-1/2 transform flex-col gap-6 rounded-md bg-white py-6 px-4 opacity-100">
       <div className="flex justify-between">
         <EmailShareButton subject="Shared from Toy URL" url={url}>
           <FaEnvelope
