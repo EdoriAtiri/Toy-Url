@@ -72,6 +72,8 @@ function InputBar() {
             value={link}
             onChange={handleTextChange}
             placeholder="Enter Link Here ..."
+            required
+            autoComplete="off"
           />
           {link.length > 0 && (
             <button

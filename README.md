@@ -68,7 +68,7 @@ npm install
 |
 ├── Frontend
 │   ├── public
-│   ├── src
+│   └── src
 │       ├── tailwind.config.js
 │       ├── .env
 │       ├── .gitignore
